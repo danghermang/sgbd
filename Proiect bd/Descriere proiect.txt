@@ -1,0 +1,68 @@
+Proiect SGBD - Aplicatie de management magazin
+Gherman Dan-Gabriel, Cebere Octavian Mihai
+A3 anul 2
+Proiectul nostru este o aplicatie care face management la un magazin(atat online cat si cu filiera fizica), ce contine date despre angajati, utilizatori, comenzi facute si produse.
+Se tine evidenta tuturor comenzilor facute, asignandu-li-se un id, acestea avand o perioada de procesare in care pot fi anulate. De asemenea, la efectuarea unei comenzi se retine si angajatul ce a facut comanda, pentru a se putea permite efectuarea diferitelor modalitati de motivare a angajatilor ( de exemplu un end of the month review pentru a putea vedea cine este employee of the month al unui magazin, pentru a i se putea oferi un bonus la salar).
+De asemenea se pot observa diferitele preferinte ale unui utilizator pentru a se poate face mai usoara targetarea personala a acestora pe viitor, putand folosi aceste date pentru ca acesta sa vada reclame personalizate pe GoogleAds, de exemplu.
+Interfata aplicatiei noastre va fi aceea pe care o au angajatii la locul de munca, prin care se pot face comenzile si se verifica daca exista produsul pe care acestia il pun in comanda.
+
+
+Tabelele folosite sunt urmatoarele:
+
+Users: Nume(string),Prenume(string),Mail(String),Id(int),data_nastere(date),Adresa(String)
+
+Constrangeri:
+Nume,prenume- Not null
+Mail- not null, si de forma "%@%\.%" (exemplu@exemplu.exemplu)
+Id- not null, unic, primary key,nr int>0
+
+Comenzi: Data_comenzii(date),id_produs(int),data_livrare(date),adress(string),id_user(int),id_angajat(int),id(int)
+
+Constrangeri:
+Data_comenzii,data livrare - not null
+id - not null, unic, primary key, nr int>0
+adress - not null
+id_produs,id_user,id_angajat- not null,foreign key
+
+Angajat: Nume(string),Prenume(string),Mail(string),Id(int),Ora_venire(int),Ora_plecare(int),Bonus(float)
+Constrangeri:
+nume,prenume - not null
+Mail- not null, si de forma "%@%\.%" (exemplu@exemplu.exemplu)
+Id- not null, unic, primary key,nr int>0
+bonus- numar real>0
+ora venire, ora plecare - not null, nr intreg intre 1 si 24
+
+Functie: Nume(string),Level(int),Id(int),Id_angajat(int),Salar(float)
+Constrangeri:
+nume - not null
+level - nr int >0
+id - not null, unic, primary key,nr int>0
+id_angajat - not null,foreign key
+salar - not null, nr real>0
+
+Magazin: Nume(string),Id(int),Locatie(string)
+Constrangeri:
+nume - not null
+id - not null, unic, primary key,nr int>0
+
+Angajati Magazin: Id_angajat(int),Id_magazin(int)
+id_angajat,Id_magazin - not null,foreign key
+
+Produse:Nume(string),Id(int),Pret(float),Rating(float),Oferta(float),NumberOf(int)
+Constrangeri:
+nume - not null
+id - not null, unic, primary key,nr int>0
+pret-not null, nr real>0
+rating - not null, nr real intre 0 si 10
+oferta - nr real >0
+numberOf- not null, nr int>=0
+
+Categorii:Nume(string),Id(int),Product_id(int)
+Constrangeri:
+nume - not null
+id - not null, unic, primary key,nr int>0
+product_id- not null,foreign key
+
+Categorie_preferata:User_id(int),Category_id(int)
+Constrangeri:
+user_id,category_id- not null,foreign key
